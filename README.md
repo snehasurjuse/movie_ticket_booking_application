@@ -53,12 +53,28 @@ This project is a Spring Boot implementation of the backend APIs for a movie tic
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/snehasurjuse/movie_ticket_booking_application.git
+   
    cd movie_ticket_booking_application
+   
 2. Update the application.properties file with your database credentials
-spring.datasource.url=jdbc:mysql://localhost:3306/movie_ticket_booking?serverTimezone=UTC
-spring.datasource.username=your_mysql_username
-spring.datasource.password=your_mysql_password
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+   spring.datasource.url=jdbc:mysql://localhost:3306/movie_ticket_booking?serverTimezone=UTC
+   spring.datasource.username=root
+   spring.datasource.password=your_mysql_password
+   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+3. Build the project using Maven: mvn clean install
+
+4. Run the application: mvn spring-boot:run
+
+5. The application will be accessible at http://localhost:8080
+
+#   Database Setup
+
+  This project uses MySQL as the database. Follow these steps to set up the database:
+  
+  Install MySQL on your local machine.
+  Create a new database named movie_ticket_booking.
+  Update the database configuration in application.properties file.
