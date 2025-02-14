@@ -52,8 +52,8 @@ This project is a Spring Boot implementation of the backend APIs for a movie tic
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/movie-ticket-booking-api.git
-   cd movie-ticket-booking-api
+   git clone https://github.com/snehasurjuse/movie_ticket_booking_application.git
+   cd movie_ticket_booking_application
 2. Update the application.properties file with your database credentials
 spring.datasource.url=jdbc:mysql://localhost:3306/movie_ticket_booking?serverTimezone=UTC
 spring.datasource.username=your_mysql_username
