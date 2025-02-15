@@ -58,12 +58,12 @@ This project is a Spring Boot implementation of the backend APIs for a movie tic
    
 2. Update the application.properties file with your database credentials
 
-   spring.datasource.url=jdbc:mysql://localhost:3306/movie_ticket_booking?serverTimezone=UTC
-   spring.datasource.username=root
-   spring.datasource.password=your_mysql_password
-   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-   spring.jpa.hibernate.ddl-auto=update
-   spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+-   spring.datasource.url=jdbc:mysql://localhost:3306/movie_ticket_booking?serverTimezone=UTC
+-   spring.datasource.username=root
+-   spring.datasource.password=your_mysql_password
+-   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+-   spring.jpa.hibernate.ddl-auto=update
+-   spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
 
 3. Build the project using Maven: mvn clean install
 
@@ -78,3 +78,58 @@ This project is a Spring Boot implementation of the backend APIs for a movie tic
   Install MySQL on your local machine.
   Create a new database named movie_ticket_booking.
   Update the database configuration in application.properties file.
+
+### API Endpoints
+
+1. User APIs
+-    Register: POST /api/users/register
+-    Login: POST /api/users/login
+
+2. Movie APIs (Admin Only for modifications)
+-    Add Movie: POST /api/movies/addMovie
+-    Get Movies: GET /api/movies
+-    Update Movie: PUT /api/movies/updateMovie/{id}
+-    Delete Movie: DELETE /api/movies/deleteByTitle/{title}
+
+3. Theater APIs (Admin Only for modifications)
+-    Add Theater: POST /api/theaters/add
+-    Get All Theaters: GET /api/theaters/getAll
+-    Update Theater: PUT /api/theaters/update/{id}
+-    Delete Theater: DELETE /api/theaters/delete/{id}
+
+4. Showtime APIs (Admin Only for modifications)
+-    Add Showtime: POST /api/showtimes
+-    Get All Showtimes: GET /api/showtimes
+-    Get Showtime by ID: GET /api/showtimes/{id}
+
+5. Seat APIs
+-    Get Available Seats: GET /seats/available/{showtimeId}
+-    Book a Seat: POST /seats/book/{seatId}
+-    Cancel Seat Booking: PUT /seats/cancel/{seatId}
+
+6. Ticket APIs
+-    Book Ticket: POST /tickets/createTicket
+-    Get Ticket by ID: GET /tickets/getById/{id}
+
+7. Order APIs
+-    Create Order (with Ticket Booking): POST /orders/createOrderWithTicket
+-    Get Order by ID: GET /orders/get/{id}
+-    Cancel Order: DELETE /orders/cancel/{id}
+
+8.  Payment APIs
+-    Process Payment: POST /api/payments/process
+-    Get Payment by ID: GET /api/payments/get/{id}
+-    Update Payment: PUT /api/payments/update/{id}
+-    Delete Payment: DELETE /api/payments/delete/{id}
+-    Food APIs (Optional)
+-    Add Food Item: POST /api/food/add
+-    Get All Food Items: GET /api/food/getAll
+-    Update Food Item: PUT /api/food/update/{id}
+-    Delete Food Item: DELETE /api/food/delete/{id}
+
+### Transaction Management
+-   Critical operations, such as order creation and payment processing, are annotated with @Transactional to ensure that either all operations complete successfully or none do. This maintains data consistency in case of failures.
+
+### Global Exception Handling
+-   A global exception handler is implemented using @RestControllerAdvice to ensure that errors like UserNotFoundException, MovieNotFoundException, TheaterNotFoundException, OrderNotFoundException, and PaymentNotFoundException are handled in a consistent manner.
+
