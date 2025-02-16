@@ -82,8 +82,9 @@ This project is a Spring Boot implementation of the backend APIs for a movie tic
 ### API Endpoints
 
 1. User APIs
--    Register: POST /api/users/register
--    Login: POST /api/users/login
+-    Register for User: POST /auth/user/register
+-    Register for Admin: POST /auth/admin/register
+-    Login: POST /auth/login
 
 2. Movie APIs (Admin Only for modifications)
 -    Add Movie: POST /api/movies/addMovie

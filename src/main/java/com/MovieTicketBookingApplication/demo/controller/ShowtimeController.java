@@ -5,6 +5,7 @@ import com.MovieTicketBookingApplication.demo.service.ShowtimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class ShowtimeController {
     @Autowired
     private ShowtimeService showtimeService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addShowtime")
     public ResponseEntity<Showtime> createShowtime(@RequestBody Showtime showtime) {
         Showtime savedShowtime = showtimeService.addShowtime(showtime);
@@ -37,6 +39,7 @@ public class ShowtimeController {
         return ResponseEntity.ok(showtimeService.getShowtimesByMovie(movieId));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("deleteShowById/{id}")
     public ResponseEntity<String> deleteShowtime(@PathVariable int id) {
         showtimeService.deleteShowtime(id);
