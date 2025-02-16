@@ -4,6 +4,7 @@ import com.MovieTicketBookingApplication.demo.model.Movie;
 import com.MovieTicketBookingApplication.demo.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +17,13 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addMovie")
     public Movie addMovie(@RequestBody Movie movie) {
         return movieService.addMovie(movie);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/batch")
     public ResponseEntity<?> addMovies(@RequestBody List<Movie> movies) {
         if (movies == null || movies.isEmpty()) {
@@ -31,11 +34,13 @@ public class MovieController {
         return ResponseEntity.ok(savedMovies);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/updateMovie/{id}")
     public ResponseEntity<Movie> updateMovieById(@PathVariable int id, @RequestBody Movie movieDetails) {
         return ResponseEntity.ok(movieService.updateMovieDetails(id, movieDetails));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/deleteByTitle/{title}")
     public ResponseEntity<String> deleteMovieByTitle(@PathVariable String title) {
         movieService.deleteMovie(title);

@@ -5,6 +5,7 @@ import com.MovieTicketBookingApplication.demo.service.FoodItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class FoodItemController {
     private FoodItemService foodItemService;
 
     // Create a new food item
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<FoodItem> addFoodItem(@RequestBody FoodItem foodItem) {
         FoodItem createdItem = foodItemService.addFoodItem(foodItem);
@@ -46,6 +48,7 @@ public class FoodItemController {
 
     // Delete a food item
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteFoodItem(@PathVariable int id) {
         foodItemService.deleteFoodItem(id);
         return ResponseEntity.ok("Food item deleted successfully");

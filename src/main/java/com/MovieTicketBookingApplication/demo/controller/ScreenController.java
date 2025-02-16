@@ -5,6 +5,7 @@ import com.MovieTicketBookingApplication.demo.service.ScreenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class ScreenController {
     }
 
     // Add a new screen
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<Screen> addScreen(@RequestBody Screen screen) {
         Screen savedScreen = screenService.addScreen(screen);
@@ -38,6 +40,7 @@ public class ScreenController {
     }
 
     // Update an existing screen
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<Screen> updateScreen(@PathVariable int id, @RequestBody Screen screenDetails) {
         Screen updatedScreen = screenService.updateScreen(id, screenDetails);
@@ -45,6 +48,7 @@ public class ScreenController {
     }
 
     // Delete a screen
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteScreen(@PathVariable int id) {
         screenService.deleteScreen(id);

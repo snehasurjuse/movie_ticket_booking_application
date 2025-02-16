@@ -5,6 +5,7 @@ import com.MovieTicketBookingApplication.demo.service.TheaterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,18 +30,21 @@ public class TheaterController {
     }
 
     // Add a new theater
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addTheater")
     public ResponseEntity<Theater> addTheater(@RequestBody Theater theater) {
         return ResponseEntity.status(HttpStatus.CREATED).body(theaterService.addTheater(theater));
     }
 
     // Update a theater
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("updateById/{id}")
     public ResponseEntity<Theater> updateTheater(@PathVariable int id, @RequestBody Theater theater) {
         return ResponseEntity.ok(theaterService.updateTheater(id, theater));
     }
 
     // Delete a theater
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("deleteById/{id}")
     public ResponseEntity<String> deleteTheater(@PathVariable int id) {
         theaterService.deleteTheater(id);

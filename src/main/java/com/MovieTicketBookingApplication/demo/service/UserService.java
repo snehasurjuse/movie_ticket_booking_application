@@ -42,13 +42,31 @@ public class UserService {
             }
 
             user.setPassword(encoder.encode(user.getPassword()));
-//            user.setPassword(user.getPassword());
             user.setRole(Role.USER);
             return userRepository.save(user);
         }catch (DataIntegrityViolationException e) {
             throw new IllegalArgumentException("Email is already registerd");
         }catch (Exception e) {
             throw new RuntimeException("An error occurred while registering the user.");
+        }
+    }
+
+    public User registerAdmin(User user) {
+        // Check if an admin already exists
+        if (userRepository.existsByRole(Role.ADMIN)) {
+            throw new IllegalStateException("Admin registration is disabled after the first admin is created.");
+        }
+        try {
+            if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+                throw new IllegalArgumentException("Email is already in use");
+            }
+            user.setPassword(encoder.encode(user.getPassword()));
+            user.setRole(Role.ADMIN);
+            return userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("Email is already registered");
+        } catch (Exception e) {
+            throw new RuntimeException("An error occurred while registering the admin user.");
         }
     }
 
